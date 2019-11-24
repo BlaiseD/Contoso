@@ -1,0 +1,31 @@
+<div class="card">
+    <div class="card-header bg-primary text-white h6">
+        {{title}}
+    </div>
+    <div class="card-body">
+        <p>
+            <a [routerLink]="['/course-create']">Create New</a>
+        </p>
+        <kendo-grid [data]="courses" [pageSize]="state.take" [skip]="state.skip" [sort]="state.sort" [sortable]="true" [pageable]="true"
+            [scrollable]="'scrollable'" [groupable]="true" [group]="state.group" [filterable]="true" [filter]="state.filter"
+            (dataStateChange)="dataStateChange($event)" [height]="600">
+            <kendo-grid-column field="courseID" filter="numeric" title="Course ID">
+            </kendo-grid-column>
+            <kendo-grid-column field="credits" filter="numeric" title="Credits">
+                <ng-template kendoGridGroupFooterTemplate let-group="group" let-aggregates>Sum: {{aggregates["credits"].sum}}</ng-template>
+                <ng-template kendoGridFooterTemplate *ngIf="aggregateResult && aggregateResult.credits" let-data let-column="column">Total {{column.title}}: {{this.courses.aggregateResult.credits.sum}}</ng-template>
+            </kendo-grid-column>
+            <kendo-grid-column field="title" title="Title">
+            </kendo-grid-column>
+            <kendo-grid-column field="departmentName" title="Department Name">
+            </kendo-grid-column>
+            <kendo-grid-command-column title="Command" width="220">
+                <ng-template kendoGridCellTemplate let-dataItem>
+                    <a class="text-primary" [routerLink]="['/course-edit', dataItem.courseID]">Edit</a> |
+                    <a class="text-primary" [routerLink]="['/course-detail', dataItem.courseID]">Details</a> |
+                    <a class="text-primary" [routerLink]="['/course-delete', dataItem.courseID]">Delete</a>
+                </ng-template>
+            </kendo-grid-command-column>
+        </kendo-grid>
+    </div>
+</div>

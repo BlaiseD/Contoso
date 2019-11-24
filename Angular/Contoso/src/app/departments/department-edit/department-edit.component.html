@@ -1,0 +1,73 @@
+<form novalidate (ngSubmit)="submitClick()" [formGroup]="departmentForm">
+  <div class="card" *ngIf='department'>
+    <div class="card-header bg-primary text-white h6">
+      {{title + ": " + department.name}}
+    </div>
+    <div class="card-body">
+      <fieldset>
+        <div class="form-group row">
+          <label class="col-md-2 col-form-label" for="budget_id">Budget</label>
+          <div class="col-md-8">
+            <input class="form-control" name="budget_id" id="budget_id" type="text" placeholder="Budget (required)" formControlName="budget"
+            />
+            <span class="form-text" *ngIf="displayMessage.budget">
+              {{displayMessage.budget}}
+            </span>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-form-label col-md-2" for="instructorID_id">Administrator</label>
+          <div class="col-md-8">
+            <kendo-dropdownlist id="instructorID_id" class="form-control" name="instructorID_id" *ngIf="instructors && instructors.length"
+              [data]="instructors" [valuePrimitive]="true" [textField]="'fullName'" [valueField]="'id'" [defaultItem]="placeHolder"
+              formControlName="instructorID">
+            </kendo-dropdownlist>
+            <span class="form-text" *ngIf="displayMessage.instructorID">
+              {{displayMessage.instructorID}}
+            </span>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-md-2 col-form-label" for="name_id">Name</label>
+          <div class="col-md-8">
+            <input class="form-control" name="name_id" id="name_id" type="text" placeholder="Name (required)" formControlName="name"
+            />
+            <span class="form-text" *ngIf="displayMessage.name">
+              {{displayMessage.name}}
+            </span>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-md-2 col-form-label" for="startDate_id">Start Date</label>
+          <div class="col-md-8">
+              <kendo-datepicker class="form-control" name="startDate_id" id="startDate_id" [(value)]="value" formControlName="startDate"></kendo-datepicker>
+            <span class="form-text" *ngIf="displayMessage.startDate">
+              {{displayMessage.startDate}}
+            </span>
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col-md-offset-2 col-md-10">
+            <span>
+
+            </span>
+          </div>
+        </div>
+      </fieldset>
+
+    </div>
+
+    <div class="card-footer">
+      <a [routerLink]="['/departments']" class="btn btn-secondary">
+        <i class="fa fa-angular fa-chevron-left"></i> Back to List
+      </a>
+
+      <button class="btn btn-primary ml-2 px-4" type="submit" [disabled]='!departmentForm.valid'>
+        Save
+      </button>
+
+    </div>
+
+
+  </div>
+</form>

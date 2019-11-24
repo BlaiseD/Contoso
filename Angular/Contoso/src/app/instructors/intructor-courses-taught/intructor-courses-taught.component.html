@@ -1,0 +1,22 @@
+<h5>{{title}}</h5>
+
+<kendo-grid [data]="courses" 
+    [pageSize]="state.take" 
+    [skip]="state.skip" 
+    [sort]="state.sort" 
+    [sortable]="true" 
+    [pageable]="true" 
+    [scrollable]="'scrollable'" 
+    [groupable]="true" 
+    [group]="state.group" 
+    (dataStateChange)="dataStateChange($event)">
+    <kendo-grid-column field="courseID" title="Number">
+    </kendo-grid-column>
+    <kendo-grid-column field="courseTitle" title="Title">
+    </kendo-grid-column>
+    <kendo-grid-column field="department" title="Department Name">
+    </kendo-grid-column>
+    <div *kendoGridDetailTemplate="let dataItem">
+        <app-course-students-enrolled [course]="dataItem"></app-course-students-enrolled>
+    </div>
+</kendo-grid>

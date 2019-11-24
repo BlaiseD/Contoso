@@ -1,0 +1,38 @@
+<div class="card" *ngIf="department">
+  <div class="card-header bg-primary text-white h6">
+      {{title + ": " + department.name}}
+  </div>
+
+  <div class="card-body">
+      <div class="row">
+          <div class="col-md-12">
+              <div class="row">
+                  <div class="col-md-3">Budget:</div>
+                  <div class="col-md-6">{{department.budget}}</div>
+              </div>
+              <div class="row">
+                  <div class="col-md-3">Name:</div>
+                  <div class="col-md-6">{{department.name}}</div>
+              </div>
+              <div class="row">
+                  <div class="col-md-3">Administrator:</div>
+                  <div class="col-md-6">{{department.administratorName}}</div>
+              </div>
+              <div class="row">
+                  <div class="col-md-3">Start Date:</div>
+                  <div class="col-md-6">{{department.startDate | date: 'MM/dd/yyyy'}}</div>
+              </div>
+          </div>
+      </div>
+      <div class='has-error' *ngIf='errorMessage'>{{errorMessage}}</div>
+  </div>
+
+  <div class="card-footer">
+      <a [routerLink]="['/departments']" class="btn btn-secondary">
+          <i class="fa fa-angular fa-chevron-left"></i> Back to List
+      </a>
+      <a class="btn btn-primary ml-2 px-4" [routerLink]="['/department-edit', department.departmentID]">
+          Edit
+      </a>
+  </div>
+</div>

@@ -1,0 +1,76 @@
+<form novalidate (ngSubmit)="submitClick()" [formGroup]="instructorForm">
+  <div class="card" *ngIf='instructor'>
+    <div class="card-header bg-primary text-white h6">
+      {{title + ": " + instructor.fullName}}
+    </div>
+    <div class="card-body">
+      <fieldset>
+        <div class="form-group row">
+          <label class="col-md-2 col-form-label" for="firstName_id">First Name</label>
+          <div class="col-md-8">
+            <input class="form-control" name="firstName_id" id="firstName_id" type="text" placeholder="First Name (required)" formControlName="firstName"
+            />
+            <span class="form-text" *ngIf="displayMessage.firstName">
+              {{displayMessage.firstName}}
+            </span>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-md-2 col-form-label" for="lastName_id">Last Name</label>
+          <div class="col-md-8">
+            <input class="form-control" name="lastName_id" id="lastName_id" type="text" placeholder="Last Name (required)" formControlName="lastName"
+            />
+            <span class="form-text" *ngIf="displayMessage.lastName">
+              {{displayMessage.lastName}}
+            </span>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-md-2 col-form-label" for="hireDate_id">Hire Date</label>
+          <div class="col-md-8">
+            <kendo-datepicker class="form-control" name="hireDate_id" id="hireDate_id" [(value)]="value" formControlName="hireDate"></kendo-datepicker>
+            <span class="form-text" *ngIf="displayMessage.hireDate">
+              {{displayMessage.hireDate}}
+            </span>
+          </div>
+        </div>
+        <div formGroupName="officeAssignment">
+          <div class="form-group row">
+            <label class="col-md-2 col-form-label" for="officeLocation_id">Office Location</label>
+            <div class="col-md-8">
+              <input class="form-control" name="officeLocation_id" id="officeLocation_id" type="text" placeholder="" formControlName="location"
+              />
+              <span class="form-text" *ngIf="displayMessage.location">
+                {{displayMessage.location}}
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-form-label col-md-2" for="courses_id">Courses</label>
+          <div class="col-md-8">
+            <kendo-multiselect id="courses_id" class="form-control" name="courses_id" *ngIf="courses && courses.length" [data]="courses"
+              [textField]="'courseTitle'" [valueField]="'courseID'" [placeholder]="placeHolder" formControlName="courses" (valueChange)="onValueChange($event)">
+            </kendo-multiselect>
+            <span class="form-text" *ngIf="displayMessage.courses">
+              {{displayMessage.courseID}}
+            </span>
+          </div>
+        </div>
+      </fieldset>
+    </div>
+
+    <div class="card-footer">
+      <button class="btn btn-secondary ml-2" (click)='onBack($event)'>
+        <i class="fa fa-angular fa-chevron-left"></i> Back to List
+      </button>
+
+      <button class="btn btn-primary ml-2 px-4" type="submit" [disabled]='!instructorForm.valid'>
+        Save
+      </button>
+
+    </div>
+
+
+  </div>
+</form>

@@ -1,0 +1,40 @@
+<div class="card">
+    <div class="card-header bg-primary text-white">
+        {{title}}
+    </div>
+    <div class="card-body">
+        <p>
+            <a [routerLink]="['/department-create']">Create New</a>
+        </p>
+
+        <kendo-grid [data]="departments" [pageSize]="state.take" [skip]="state.skip" [sort]="state.sort" [sortable]="true" [pageable]="true"
+            [scrollable]="'scrollable'" [groupable]="true" [group]="state.group" [filterable]="true" [filter]="state.filter"
+            (dataStateChange)="dataStateChange($event)" [height]="600">
+            <kendo-grid-column field="name" title="Name">
+                <ng-template kendoGridGroupFooterTemplate let-group="group" let-aggregates>Count: {{aggregates["name"].count}}</ng-template>
+                <ng-template kendoGridFooterTemplate *ngIf="aggregateResult.name" let-data let-column="column">Total {{column.title}}: {{this.aggregateResult.name.count}}</ng-template>
+            </kendo-grid-column>
+            <kendo-grid-column field="budget" title="Budget" filter="numeric">
+                <ng-template kendoGridCellTemplate let-dataItem>{{dataItem.budget | currency:'USD':'symbol':'1.2-2'}}</ng-template>
+                <ng-template kendoGridGroupFooterTemplate let-group="group" let-aggregates>Sum: {{aggregates["budget"].sum | currency:'USD':'symbol':'1.2-2'}}</ng-template>
+                <ng-template kendoGridFooterTemplate *ngIf="aggregateResult.budget" let-data let-column="column">Sum {{column.title}}: {{this.aggregateResult.budget.sum | currency:'USD':'symbol':'1.2-2'}}</ng-template>
+            </kendo-grid-column>
+            <kendo-grid-column field="administratorName" title="Administrator Name">
+                <ng-template kendoGridGroupFooterTemplate let-group="group" let-aggregates>Min: {{aggregates["administratorName"].min}}</ng-template>
+                <ng-template kendoGridFooterTemplate *ngIf="aggregateResult.administratorName" let-data let-column="column">Min {{column.title}}:
+                    <br>{{this.aggregateResult.administratorName.min}}</ng-template>
+            </kendo-grid-column>
+            <kendo-grid-column field="startDate" title="Start Date" filter="date">
+                <ng-template kendoGridCellTemplate let-dataItem>{{dataItem.startDate | date}}</ng-template>
+                <ng-template kendoGridFooterTemplate *ngIf="aggregateResult && aggregateResult.startDate" let-data let-column="column">Min {{column.title}}: {{this.aggregateResult.startDate.min | date}}</ng-template>
+            </kendo-grid-column>
+            <kendo-grid-command-column title="Command" width="220">
+                <ng-template kendoGridCellTemplate let-dataItem>
+                    <a class="text-primary" [routerLink]="['/department-edit', dataItem.departmentID]">Edit</a> |
+                    <a class="text-primary" [routerLink]="['/department-detail', dataItem.departmentID]">Details</a> |
+                    <a class="text-primary" [routerLink]="['/department-delete', dataItem.departmentID]">Delete</a>
+                </ng-template>
+            </kendo-grid-command-column>
+        </kendo-grid>
+    </div>
+</div>

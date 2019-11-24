@@ -1,0 +1,34 @@
+<div class="card">
+    <div class="card-header bg-primary text-white h6">
+        {{title}}
+    </div>
+    <div class="card-body">
+        <p>
+            <a [routerLink]="['/student-create']">Create New</a>
+        </p>
+
+        <kendo-grid [data]="students" [pageSize]="state.take" [skip]="state.skip" [sort]="state.sort" [sortable]="true" [pageable]="true"
+            [scrollable]="'scrollable'" [groupable]="true" [group]="state.group" [filterable]="true" [filter]="state.filter"
+            (dataStateChange)="dataStateChange($event)" [height]="600">
+            <kendo-grid-column field="firstName" title="First Name">
+            </kendo-grid-column>
+            <kendo-grid-column field="lastName" title="Last Name">
+                <ng-template kendoGridGroupFooterTemplate let-column="column" let-group="group" let-aggregates>Count: {{aggregates[column.field].count}}</ng-template>
+                <ng-template kendoGridFooterTemplate *ngIf="aggregateResult.lastName" let-data let-column="column">Total {{column.title}}: {{aggregateResult[column.field].count}}</ng-template>
+            </kendo-grid-column>
+            <kendo-grid-column field="fullName" title="Full Name">
+            </kendo-grid-column>
+            <kendo-grid-column field="enrollmentDate" title="Enrollment Date" filter="date">
+                <ng-template kendoGridCellTemplate let-column="column" let-dataItem>{{dataItem["enrollmentDate"] | date}}</ng-template>
+                <ng-template kendoGridFooterTemplate let-data let-column="column" *ngIf="aggregateResult && aggregateResult.enrollmentDate">Min {{column.title}}: {{aggregateResult[column.field].min | date}}</ng-template>
+            </kendo-grid-column>
+            <kendo-grid-command-column title="Command" width="220">
+                <ng-template kendoGridCellTemplate let-dataItem>
+                    <a class="text-primary" [routerLink]="['/student-edit', dataItem.id]">Edit</a> |
+                    <a class="text-primary" [routerLink]="['/student-detail', dataItem.id]">Details</a> |
+                    <a class="text-primary" [routerLink]="['/student-delete', dataItem.id]">Delete</a>
+                </ng-template>
+            </kendo-grid-command-column>
+        </kendo-grid>
+    </div>
+</div>

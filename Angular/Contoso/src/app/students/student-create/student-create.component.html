@@ -1,0 +1,52 @@
+<form novalidate (ngSubmit)="submitClick()" [formGroup]="studentForm">
+    <div class="card" *ngIf='student'>
+      <div class="card-header bg-primary text-white h6">
+        Create {{title}}
+      </div>
+      <div class="card-body">
+        <fieldset>
+          <div class="form-group row">
+            <label class="col-md-2 col-form-label" for="enrollmentDate_id">Enrollment Date</label>
+            <div class="col-md-8">
+                <kendo-datepicker class="form-control" name="enrollmentDate_id" id="enrollmentDate_id" [(value)]="value" formControlName="enrollmentDate"></kendo-datepicker>
+              <span class="form-text" *ngIf="displayMessage.enrollmentDate">
+                {{displayMessage.enrollmentDate}}
+              </span>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-md-2 col-form-label" for="firstName_id">First Name</label>
+            <div class="col-md-8">
+              <input class="form-control" name="firstName_id" id="firstName_id" type="text" placeholder="First Name (required)" formControlName="firstName" />
+              <span class="form-text" *ngIf="displayMessage.firstName">
+                {{displayMessage.firstName}}
+              </span>
+            </div>
+          </div>
+          <div class="form-group row">
+              <label class="col-md-2 col-form-label" for="lastName_id">Last Name</label>
+              <div class="col-md-8">
+                <input class="form-control" name="lastName_id" id="lastName_id" type="text" placeholder="Last Name (required)" formControlName="lastName" />
+                <span class="form-text" *ngIf="displayMessage.lastName">
+                  {{displayMessage.lastName}}
+                </span>
+              </div>
+            </div>
+        </fieldset>
+  
+      </div>
+  
+      <div class="card-footer">
+        <a [routerLink]="['/students']" class="btn btn-secondary">
+          <i class="fa fa-angular fa-chevron-left"></i> Back to List
+        </a>
+  
+        <button class="btn btn-primary ml-2 px-4" type="submit" [disabled]='!studentForm.valid'>
+          Save
+        </button>
+  
+      </div>
+  
+  
+    </div>
+  </form>

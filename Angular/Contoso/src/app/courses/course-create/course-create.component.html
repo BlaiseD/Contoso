@@ -1,0 +1,74 @@
+<form novalidate (ngSubmit)="submitClick()" [formGroup]="courseForm">
+  <div class="card" *ngIf='course'>
+    <div class="card-header bg-primary text-white h6">
+      Create {{pageTitle}}
+    </div>
+    <div class="card-body">
+      <fieldset>
+        <div class="form-group row">
+          <label class="col-md-2 col-form-label" for="courseID_id">Number</label>
+          <div class="col-md-8">
+            <input class="form-control" name="courseID_id" id="courseID_id" type="text" placeholder="Number (required)" formControlName="courseID"
+            />
+            <span class="form-text" *ngIf="displayMessage.courseID">
+              {{displayMessage.courseID}}
+            </span>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-md-2 col-form-label" for="credits_id">Credits</label>
+          <div class="col-md-8">
+            <input class="form-control" name="credits_id" id="credits_id" type="text" placeholder="Credits (required)" formControlName="credits"
+            />
+            <span class="form-text" *ngIf="displayMessage.credits">
+              {{displayMessage.credits}}
+            </span>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-form-label col-md-2" for="departmentID_id">Department</label>
+          <div class="col-md-8">
+            <kendo-dropdownlist id="departmentID_id" class="form-control" name="departmentID_id" *ngIf="departments && departments.length"
+              [data]="departments" [valuePrimitive]="true" [textField]="'name'" [valueField]="'departmentID'" [defaultItem]="placeHolder"
+              formControlName="departmentID">
+            </kendo-dropdownlist>
+            <span class="form-text" *ngIf="displayMessage.departmentID">
+              {{displayMessage.departmentID}}
+            </span>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-md-2 col-form-label" for="title_id">Title</label>
+          <div class="col-md-8">
+            <input class="form-control" name="title_id" id="title_id" type="text" placeholder="Title (required)" formControlName="title"
+            />
+            <span class="form-text" *ngIf="displayMessage.title">
+              {{displayMessage.title}}
+            </span>
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col-md-offset-2 col-md-10">
+            <span>
+
+            </span>
+          </div>
+        </div>
+      </fieldset>
+
+    </div>
+
+    <div class="card-footer">
+      <a [routerLink]="['/courses']" class="btn btn-secondary">
+        <i class="fa fa-angular fa-chevron-left"></i> Back to List
+      </a>
+
+      <button class="btn btn-primary ml-2 px-4" type="submit" [disabled]='!courseForm.valid'>
+        Save
+      </button>
+
+    </div>
+
+
+  </div>
+</form>
